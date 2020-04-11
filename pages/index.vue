@@ -2,15 +2,16 @@
 	<div class="container">
 		<filterBar />
 
-		<div class="grid">
+		<transition-group name="products" mode="out-in" tag="div" class="grid">
 			<product v-for="product in products" :key="product.id" :product="product" />
-		</div>
+		</transition-group>
 	</div>
 </template>
 
 <script>
 import product from '~/components/product.vue'
 import filterBar from '~/components/filterBar.vue'
+
 export default {
 	components: {
 		product,
@@ -40,20 +41,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.grid {
-	width: 80%;
-	max-width: 900px;
-
+.container {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	align-content: center;
-	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: flex-start;
+	align-content: flex-start;
+
+	.grid {
+		width: 80%;
+		max-width: 900px;
+		height: 100vh;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-content: flex-start;
+		flex-wrap: wrap;
+	}
 }
 
 @media (max-width: 825px) {
-	.grid {
-		justify-content: center;
+	.container {
+		flex-direction: column;
+		.grid {
+			width: 100%;
+			justify-content: center;
+		}
+		.filters {
+			width: 100%;
+		}
 	}
 }
 </style>

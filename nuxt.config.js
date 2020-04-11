@@ -15,7 +15,7 @@ module.exports = {
 	css: ['~/assets/style.scss'],
 
 	// Plugins to load before mounting the App
-	//plugins: ['~/plugins/vue-notifications.js'],
+	plugins: ['~/plugins/v-select.js'],
 
 	// Nuxt.js modules
 	modules: ['@nuxtjs/prismic'],

@@ -3,15 +3,28 @@ export const state = () => ({
 	filteredProducts: [],
 	filters: [
 		{
-			name: 'S',
+			name: 'small',
+			category: 'size',
 			value: false,
 		},
 		{
-			name: 'M',
+			name: 'medium',
+			category: 'size',
 			value: false,
 		},
 		{
-			name: 'L',
+			name: 'large',
+			category: 'size',
+			value: false,
+		},
+		{
+			name: 'man',
+			category: 'type',
+			value: false,
+		},
+		{
+			name: 'woman',
+			category: 'type',
 			value: false,
 		},
 	],
@@ -34,30 +47,35 @@ export const mutations = {
 	},
 	updateFilter(state, filter) {
 		// find and update filter value
-		var filterItem = state.filters.filter((item) => {
-			if (item.name === filter) {
-				item.value = !item.value
-				return item
+		state.filters.forEach((item) => {
+			if (item.name === filter) item.value = !item.value
+		})
+
+		// array of all filters selected
+		var filterArray = state.filters.filter((filter) => filter.value === true)
+
+		state.filteredProducts = []
+		// get all filtred arrays then merge them
+		filterArray.forEach((i) => {
+			if (i.category === 'size') {
+				var add = state.products.filter((product) => product.data.size === i.name)
+				add.forEach((item) => {
+					state.filteredProducts.push(item)
+				})
+			}
+			if (i.category === 'type') {
+				var add = state.products.filter((product) => product.data.type === i.name)
+				add.forEach((item) => {
+					state.filteredProducts.push(item)
+				})
 			}
 		})
 
-		// filtered array of products
-		var filteredProducts = state.products.filter((product) => product.data.size === filter)
-		var restProducts = state.filteredProducts.filter((product) => product.data.size !== filter)
-
-		if (filterItem[0].value) {
-			console.log('add')
-			// adding the filtered array
-			filteredProducts.forEach((item) => {
-				state.filteredProducts.push(item)
-			})
-		} else {
-			console.log('remove')
-			// removing the filtered array
-			state.filteredProducts = restProducts
+		// get only the duplicates
+		if (filterArray.length > 1) {
+			var pom = state.filteredProducts.filter((item, index) => state.filteredProducts.indexOf(item) !== index)
+			if (pom.length !== 0) state.filteredProducts = pom
 		}
-
-		// if state.filteredProducts is empty, return all products
 	},
 }
 
