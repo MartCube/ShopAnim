@@ -1,4 +1,4 @@
-# piratcrew
+# shopAnim
 
 > My stellar Nuxt.js project
 
