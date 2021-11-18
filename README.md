@@ -1,6 +1,9 @@
-# shopAnim
+# shopAnim - demo project
 
-> My stellar Nuxt.js project
+- E-shop UI
+- E-shop UX and animation
+- Anime.js
+
 
 ## Build Setup
 
